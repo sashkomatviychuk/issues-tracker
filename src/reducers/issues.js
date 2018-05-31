@@ -6,6 +6,7 @@ import {
     UPDATE_ISSUE,
     REMOVE_ISSUE,
     SYNC_ISSUES,
+    ISSUES_PER_PAGE,
 } from './../actions/issues';
 
 let initialState = {
@@ -28,8 +29,8 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                issues: [
-                    ...state.issues,
+                list: [
+                    ...state.list,
                     ...action.issues,
                 ],
                 prevLength: action.issues.length,
@@ -39,6 +40,33 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+            };
+
+        case ADD_NEW_ISSUE:
+            const { list } = state;
+
+            // add new issue to the top of list
+            list.unshift(action.issue);
+
+            // remove last element if needed
+            if (list.length > ISSUES_PER_PAGE) {
+                list.pop();
+            }
+
+            return {
+                ...state,
+                list,
+            };
+
+        case UPDATE_ISSUE:
+            const { list } = state;
+            const { index, issue } = action;
+
+            list[i] = issue;
+
+            return {
+                ...state,
+                list,
             };
     }
 };

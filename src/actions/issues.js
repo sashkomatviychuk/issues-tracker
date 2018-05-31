@@ -8,6 +8,8 @@ export const UPDATE_ISSUE = 'UPDATE_ISSUE';
 export const REMOVE_ISSUE = 'REMOVE_ISSUE';
 export const SYNC_ISSUES = 'SYNC_ISSUES';
 
+export const ISSUES_PER_PAGE = 20;
+
 /**
  * Get params for action that runs before issues data will fetched
  * @returns {Object}
@@ -55,19 +57,105 @@ function issuesWasLoaded(response) {
     return actionData;
 }
 
+/**
+ *
+ * @param {Object} issue
+ * @returns {Object}
+ */
+function addIssueAction(issue) {
+    return {
+        action: ADD_NEW_ISSUE,
+        issue,
+    };
+}
+
+/**
+ * @param {Number} index
+ * @param {Object} issue
+ * @returns {Object}
+ */
+function updateIssueAction(index, issue) {
+    return {
+        action: UPDATE_ISSUE,
+        issue,
+        index,
+    };
+}
+
+/**
+ * @param {Number} index
+ * @returns {Object}
+ */
+function removeIssueAction(index) {
+    return {
+        action: REMOVE_ISSUE,
+        index,
+    };
+}
+
 export const fetchIssues = () => (dispatch, getStats) => {
     const state = getState();
-    let page = state.issues.page || 1;
+    const issues = state.issues.list || [];
+    const page = parseInt(issues.length / ISSUES_PER_PAGE) + 1;
 
     dispatch(beforeIssuesLoaded());
 
     return axios.get('/api/issues', { page })
         .then(response => {
-            const data = response.data || [];
 
             dispatch(issuesWasLoaded(response));
 
             return response;
         })
         .catch(err => dispatch(issuesLoadedFailed()));
+};
+
+export const createIssue = issue => (dispatch, getState) => {
+    return axios.post('/api/issues', { issue })
+        .then(response => {
+            const { result } = response;
+
+            if (result == 1) {
+                dispatch(addIssueAction(issue));
+            }
+        })
+        .catch(err => {});
+};
+
+export const updateIssue = (index, issue) => (dispatch, getState) => {
+    return axios.put('/api/issue/' + issue._id, { issue })
+        .then(response => {
+            const { result } = response;
+
+            if (result == 1) {
+                dispatch(updateIssueAction(index, issue));
+            }
+        })
+        .catch(err => {});
+};
+
+export const removeIssue = (index, issue) => (dispatch, getState) => {
+    return axios.delete('/api/issue/' + issue._id)
+        .then(response => {
+            const { result } = response;
+
+            if (result == 1) {
+                dispatch(removeIssueAction(index));
+            }
+        })
+        .catch(err => {});
+};
+
+export const syncIssues = () => (dispatch, getState) => {
+    const state = getState();
+    const offset = state.issues.length;
+    const limit = 1;
+
+    return axios.get('api/issues/sync', { offset, limit })
+        .then(response => {
+            dispatch(issuesWasLoaded(response));
+
+            return response;
+        })
+        .catch(err => {});
 };
