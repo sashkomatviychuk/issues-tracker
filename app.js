@@ -7,13 +7,14 @@ const mongoose = require('mongoose');
 const moment = require('moment');
 const session = require('express-session');
 
-// const config = require('./config');
-// webpack middleware
-// const applyWebpackMiddleware = require('./app/services/front/webpack');
+const config = require('./config');
+// middlewares
+const applyWebpackMiddleware = require('./app/middlewares/webpackMiddleware');
+const frontMiddleware = require('./app/middlewares/frontMiddleware');
 // require controllers
-// const frontRoutes = require('./app/controllers/frontController');
+const issuesController = require('./app/controllers/issuesController');
 // models
-// require('./app/models');
+require('./app/models');
 
 /**
  * Application definition
@@ -32,30 +33,29 @@ class Application {
 
     middlewares() {
         // applying webpack hmr middleware if dev mode enabled
-        // applyWebpackMiddleware(this.express);
+        applyWebpackMiddleware(this.express);
         //this.express.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
         this.express.use(bodyParser.json());
         this.express.use(bodyParser.urlencoded({ extended: true }));
         this.express.use(cookieParser());
         this.express.use(express.static(config.publicPath));
-        this.express.use(session(config.session));
 
         // apply routes
-        // this.express.use('/api', controller);
+        this.express.use('/api', issuesController);
     }
 
     setupViews() {
-        // this.express.set('views', config.viewsPath);
+        this.express.set('views', config.viewsPath);
         this.express.set('view engine', 'jade');
         this.express.locals.moment = moment;
     }
 
     setupDb() {
-        // mongoose.connect(config.connection);
+        mongoose.connect(config.connection);
     }
 
     ssrRendering() {
-        // this.express.get('*', frontRoutes);
+        this.express.get('*', frontMiddleware);
     }
 }
 
