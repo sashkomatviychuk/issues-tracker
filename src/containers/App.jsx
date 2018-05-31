@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import Header from './Header';
-import InfoPanel from './panels/AlertsPanel'
+import AlertsPanel from './panels/AlertsPanel'
 import IssuesContainer from './issues/IssuesContainer';
 
 const App = (props) => (

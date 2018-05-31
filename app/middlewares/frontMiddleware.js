@@ -4,7 +4,6 @@ const { createStore } = require('redux');
 const { Provider } = require('react-redux');
 const { StaticRouter } = require('react-router');
 
-const reducers = require('./../../src/reducers');
 const configureStore = require('./../../src/configureStore');
 const App = require('./../../src/containers/App').default;
 

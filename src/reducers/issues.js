@@ -16,7 +16,6 @@ let initialState = {
     isLoading: false,
 };
 
-
 export default (state = initialState, action) => {
     switch (action.type) {
         case BEFORE_ISSUES_LOADED:
@@ -42,7 +41,7 @@ export default (state = initialState, action) => {
                 loading: false,
             };
 
-        case ADD_NEW_ISSUE:
+        case ADD_NEW_ISSUE: {
             const { list } = state;
 
             // add new issue to the top of list
@@ -57,8 +56,9 @@ export default (state = initialState, action) => {
                 ...state,
                 list,
             };
+        }
 
-        case UPDATE_ISSUE:
+        case UPDATE_ISSUE: {
             const { list } = state;
             const { index, issue } = action;
 
@@ -68,5 +68,9 @@ export default (state = initialState, action) => {
                 ...state,
                 list,
             };
+        }
+
+        default:
+            return state;
     }
 };

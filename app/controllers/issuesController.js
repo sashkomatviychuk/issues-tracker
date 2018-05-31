@@ -122,7 +122,7 @@ class IssuesController {
      * @param {Request} req
      * @param {Response} res
      */
-    getSync(req, res) {
+    async getSync(req, res) {
         const limit = req.qeury.limit || 1;
         const skip = req.qeury.offset || 0;
         let issues;

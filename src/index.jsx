@@ -4,6 +4,7 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'styles/index.sass'
 import App from 'containers/App'
 import configureStore from 'configureStore'
