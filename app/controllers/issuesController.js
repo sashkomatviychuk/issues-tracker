@@ -28,20 +28,61 @@ class IssuesController {
      * @param {Request} req
      * @param {Response} res
      */
-    async createIssue(req, res) {}
+    async createIssue(req, res) {
+        const data = {
+            title: req.body.title,
+            description: req.body.description,
+            status: req.body.status,
+            priority: req.body.priority,
+        };
+
+        try {
+            await IssuesRepo.createIssue(data);
+
+            return res.json({
+                result: 1,
+            });
+        } catch (err) {
+            return res.json({
+                result: 0,
+                error: err.toString(),
+            });
+        }
+    }
 
     /**
      * @param {Request} req
      * @param {Response} res
      */
-    async updateIssue(req, res) {}
+    async updateIssue(req, res) {
+        const id = req.params.id;
+        const data = {
+            title: req.body.title,
+            description: req.body.description,
+            status: req.body.status,
+            priority: req.body.priority,
+        };
+
+        try {
+            await IssuesRepo.updateIssue(ObjectId(id), data);
+
+            return res.json({
+                result: 1,
+            });
+        } catch (err) {
+            return res.json({
+                result: 0,
+                error: err.toString(),
+            });
+        }
+    }
 
     /**
      * @param {Request} req
      * @param {Response} res
      */
     async deleteIssue(req, res) {
-        const id = req.param.id;
+        const id = req.params.id;
 
         try {
             await IssuesRepo.removeIssue(ObjectId(id));

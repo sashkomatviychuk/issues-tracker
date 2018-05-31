@@ -1,4 +1,5 @@
 const config = require('./../../../config');
+const validate = require('./issueValidator');
 
 class IssuesRepository {
 
@@ -26,6 +27,37 @@ class IssuesRepository {
             .skip(skip)
             .lean()
             .exec();
+    }
+
+    /**
+     * Create new issue
+     * @param {Object} data
+     */
+    static async createIssue(data) {
+        const error = validate(data);
+
+        if (error) {
+            throw new Error(error);
+        }
+
+        const issue = new Issue(data);
+
+        return await issue.save();
+    }
+
+    /**
+     * Update issue
+     * @param {ObjectId} id
+     * @param {Object} data
+     */
+    static async updateIssue(id, data) {
+        const error = validate(data);
+
+        if (error) {
+            throw new Error(error);
+        }
+
+        return await Issue.update({ _id: id }, { $set: data });
     }
 
     /**
