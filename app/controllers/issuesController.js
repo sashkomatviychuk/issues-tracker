@@ -133,8 +133,8 @@ class IssuesController {
      * @param {Response} res
      */
     async getSync(req, res) {
-        const limit = req.query.limit || 1;
-        const skip = req.query.offset || 0;
+        const limit = parseInt(req.query.limit, 10) || 1;
+        const skip = parseInt(req.query.offset, 10) || 0;
         let issues;
 
         try {
