@@ -37,10 +37,10 @@ class IssuesRepository {
      * @param {Object} data
      */
     static async createIssue(data) {
-        const error = validate(data);
+        const { error } = validate(data);
 
         if (error) {
-            throw new IssueValidationError(error);
+            throw new IssueValidationError(error.message);
         }
 
         const issue = new Issue(data);
@@ -54,10 +54,10 @@ class IssuesRepository {
      * @param {Object} data
      */
     static async updateIssue(id, data) {
-        const error = validate(data);
+        const { error } = validate(data);
 
         if (error) {
-            throw new IssueValidationError(error);
+            throw new IssueValidationError(error.message);
         }
 
         const issue = await Issue.findOne({ _id: id }).lean().exec();

@@ -3,19 +3,22 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const router = express.Router();
 
 const IssuesRepo = require('./../services/issues/issuesRepository');
-const IssueValidationError = require('./issueValidationError');
+const IssueValidationError = require('./../services/issues/issueValidationError');
 
 class IssuesController {
 
     async getIssues(req, res) {
-        const page = req.qeury.page || 1;
+        const page = req.query.page || 1;
         let issues;
 
         try {
             issues = await IssuesRepo.getListByPage(page);
         } catch (err) {
+            console.error(err);
+
             return res.json({
                 result: 0,
+                err: err.toString(),
             });
         }
 
@@ -47,7 +50,7 @@ class IssuesController {
             const result = { result: 0 };
 
             if (err instanceof IssueValidationError) {
-                result.error = err.toString();
+                result.error = err.message;
             }
 
             return res.json(result);
@@ -77,7 +80,7 @@ class IssuesController {
             const result = { result: 0 };
 
             if (err instanceof IssueValidationError) {
-                result.error = err.toString();
+                result.error = err.message;
             }
 
             return res.json(result);
@@ -130,8 +133,8 @@ class IssuesController {
      * @param {Response} res
      */
     async getSync(req, res) {
-        const limit = req.qeury.limit || 1;
-        const skip = req.qeury.offset || 0;
+        const limit = req.query.limit || 1;
+        const skip = req.query.offset || 0;
         let issues;
 
         try {
