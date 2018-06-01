@@ -3,6 +3,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const router = express.Router();
 
 const IssuesRepo = require('./../services/issues/issuesRepository');
+const IssueValidationError = require('./issueValidationError');
 
 class IssuesController {
 
@@ -43,10 +44,13 @@ class IssuesController {
                 result: 1,
             });
         } catch (err) {
-            return res.json({
-                result: 0,
-                error: err.toString(),
-            });
+            const result = { result: 0 };
+
+            if (err instanceof IssueValidationError) {
+                result.error = err.toString();
+            }
+
+            return res.json(result);
         }
     }
 
@@ -70,10 +74,13 @@ class IssuesController {
                 result: 1,
             });
         } catch (err) {
-            return res.json({
-                result: 0,
-                error: err.toString(),
-            });
+            const result = { result: 0 };
+
+            if (err instanceof IssueValidationError) {
+                result.error = err.toString();
+            }
+
+            return res.json(result);
         }
     }
 

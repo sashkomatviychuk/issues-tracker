@@ -1,5 +1,8 @@
 const config = require('./../../../config');
 const validate = require('./issueValidator');
+const IssuesStatsHelper = require('./helpers/issuesStatsHelper');
+const IssueStatusHelper = require('./helpers/issueStatusHelper');
+const IssueValidationError = require('./issueValidationError');
 
 class IssuesRepository {
 
@@ -37,7 +40,7 @@ class IssuesRepository {
         const error = validate(data);
 
         if (error) {
-            throw new Error(error);
+            throw new IssueValidationError(error);
         }
 
         const issue = new Issue(data);
@@ -54,7 +57,22 @@ class IssuesRepository {
         const error = validate(data);
 
         if (error) {
-            throw new Error(error);
+            throw new IssueValidationError(error);
+        }
+
+        const issue = await Issue.findOne({ _id: id }).lean().exec();
+
+        if (!issue) {
+            return 0;
+        }
+
+        const canChangeStatus = IssueStatusHelper.canChangeStatus(
+            issue.status,
+            data.status
+        );
+
+        if (!canChangeStatus) {
+            throw new IssueValidationError(`Cannot update status ${issue.status} to ${data.status}`);
         }
 
         return await Issue.update({ _id: id }, { $set: data });
@@ -77,7 +95,7 @@ class IssuesRepository {
      * @returns {Array<Object>}
      */
     static async getStats() {
-        return await Issue.aggregate(
+        const stats = await Issue.aggregate(
             [
                 {
                     $group: {
@@ -93,6 +111,8 @@ class IssuesRepository {
                 },
             ]
         ).exec();
+
+        return IssuesStatsHelper.getPreparedStats(stats);
     }
 
     /**
