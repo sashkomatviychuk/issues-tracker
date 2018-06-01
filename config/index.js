@@ -1,3 +1,4 @@
+require('dotenv').config()
 const path = require('path');
 
 const dbHost = process.env.DB_HOST || 'localhost';
