@@ -4,7 +4,7 @@
   "description": "Simple issues tracker",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:unit": "mocha tests/unit/**/*Test.js",
     "watch": "webpack-dev-server",
     "build": "NODE_ENV=production webpack",
     "serve": "nodemon server.js",

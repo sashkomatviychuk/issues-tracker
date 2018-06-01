@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 const config = require('./../../../config');
 const validate = require('./issueValidator');
 const IssuesStatsHelper = require('./helpers/issuesStatsHelper');
@@ -119,8 +121,14 @@ class IssuesRepository {
      * @param {Number} page
      */
     static getSkipAndLimit(page) {
+        const parsedPage = parseInt(page, 10);
+
+        if (_.isNaN(parsedPage) || parsedPage < 1) {
+            throw new Error('Not valid page value');
+        }
+
         const { limit } = config;
-        const skip = (page - 1) * limit;
+        const skip = (parsedPage - 1) * limit;
 
         return { skip, limit };
     }

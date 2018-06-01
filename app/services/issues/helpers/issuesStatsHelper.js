@@ -8,6 +8,10 @@ class IssuesStatsHelper {
      * @returns {Array<Object>}
      */
     static getPreparedStats(data) {
+        if (!data || !Array.isArray(data)) {
+            return [];
+        }
+
         const clonedData = _.cloneDeep(data);
         const total = _.sumBy(data, 'count');
         const lastIndex = clonedData.length - 1;
@@ -18,6 +22,10 @@ class IssuesStatsHelper {
         }
 
         return clonedData.reduce((prev, item, i) => {
+            if (!_.has(item, 'count') || !_.has(item, 'status')) {
+                return prev;
+            }
+
             if (i === lastIndex) {
                 const sumPrev = _.sumBy(prev, 'count');
 
@@ -26,11 +34,14 @@ class IssuesStatsHelper {
                     count: (maxPercent - sumPrev),
                 });
             } else {
+                const count = parseInt(item.count, 10) || 0;
+
                 prev.push({
                     status: item.status,
-                    count: Math.ceil(100 * (item.count / total)),
+                    count: Math.ceil(100 * (count / total)),
                 });
             }
+
             return prev;
         }, []);
     }
