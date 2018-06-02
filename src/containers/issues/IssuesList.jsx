@@ -36,7 +36,7 @@ class IssuesList extends React.Component {
         return (
             <div>
                 <div className="list-group">
-                    {content || 'Issues list is empty'}
+                    {content.length ? content : <span className="text-center">Issues list is empty</span>}
                 </div>
                 {showLoadMore && <div className="text-center mt-30">
                     <Button color="link" onClick={this.onLoadMore} >Load more</Button>
