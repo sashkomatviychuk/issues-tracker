@@ -41,9 +41,10 @@ class IssuesController {
         };
 
         try {
-            await IssuesRepo.createIssue(data);
+            const result = await IssuesRepo.createIssue(data);
 
             return res.json({
+                _id: result._id.toString(),
                 result: 1,
             });
         } catch (err) {

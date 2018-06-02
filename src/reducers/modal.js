@@ -2,6 +2,7 @@ import { SHOW_MODAL, HIDE_MODAL } from './../actions/modal';
 
 let initialState = {
     issue: null,
+    issueIndex: -1,
     isOpen: false,
 };
 
@@ -12,6 +13,7 @@ export default (state = initialState, action) => {
                 ...state,
                 isOpen: true,
                 issue: action.issue || null,
+                issueIndex: action.issueIndex,
             };
 
         case HIDE_MODAL:
@@ -19,6 +21,7 @@ export default (state = initialState, action) => {
                 ...state,
                 isOpen: false,
                 issue: null,
+                issueIndex: -1,
             };
 
         default:

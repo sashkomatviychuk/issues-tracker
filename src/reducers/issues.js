@@ -7,6 +7,7 @@ import {
     REMOVE_ISSUE,
     SYNC_ISSUES,
     ISSUES_PER_PAGE,
+    APPLY_ISSUES_FILER,
 } from './../actions/issues';
 
 let initialState = {
@@ -14,6 +15,7 @@ let initialState = {
     page: 1,
     prevLength: 0,
     isLoading: false,
+    filter: null,
 };
 
 export default (state = initialState, action) => {
@@ -21,10 +23,10 @@ export default (state = initialState, action) => {
         case BEFORE_ISSUES_LOADED:
             return {
                 ...state,
-                loading: true,
+                isLoading: true,
             };
 
-        case ISSUES_LOADED_SUCCESS:
+        case ISSUES_LOADED_SUCCESS: {
             return {
                 ...state,
                 loading: false,
@@ -34,15 +36,16 @@ export default (state = initialState, action) => {
                 ],
                 prevLength: action.issues.length,
             };
+        }
 
         case ISSUES_LOADED_FAILED:
             return {
                 ...state,
-                loading: false,
+                isLoading: false,
             };
 
         case ADD_NEW_ISSUE: {
-            const { list } = state;
+            const list = JSON.parse(JSON.stringify(state.list));
 
             // add new issue to the top of list
             list.unshift(action.issue);
@@ -59,14 +62,33 @@ export default (state = initialState, action) => {
         }
 
         case UPDATE_ISSUE: {
-            const { list } = state;
+            const list = JSON.parse(JSON.stringify(state.list));
             const { index, issue } = action;
 
-            list[i] = issue;
+            list[index] = issue;
 
             return {
                 ...state,
                 list,
+            };
+        }
+
+        case REMOVE_ISSUE: {
+            const list = JSON.parse(JSON.stringify(state.list));
+            const { index } = action;
+
+            list.splice(index, 1);
+
+            return {
+                ...state,
+                list,
+            };
+        }
+
+        case APPLY_ISSUES_FILER: {
+            return {
+                ...state,
+                filter: action.filter || null,
             };
         }
 

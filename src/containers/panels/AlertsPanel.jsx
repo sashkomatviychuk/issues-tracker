@@ -33,7 +33,7 @@ InfoPanel.propTypes = {
 };
 
 const mapStateToProps = state => {
-    return state.info || {};
+    return state.alerts || {};
 };
 
 export default connect(mapStateToProps)(InfoPanel);

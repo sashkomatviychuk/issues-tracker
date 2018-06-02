@@ -1,0 +1,56 @@
+body {
+    margin: 0;
+}
+
+.alert {
+    position: absolute;
+    z-index: 1099;
+    width: 100%;
+    border-radius: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.header {
+    max-width: 800px;
+    margin-bottom: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin-top: 10px;
+}
+
+.mt-30 {
+    margin-top: 30px;
+}
+
+.border-left-open {
+    border-left: #007bff 2px solid !important;
+}
+
+.border-left-pending {
+    border-left: #ffc107 2px solid !important;
+}
+
+.border-left-closed {
+    border-left: #218838 2px solid !important;
+}
+
+.list-group-item:hover {
+    cursor: move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+
+.rm-btn {
+    font-size: 14px;
+    padding: 2px 4px;
+    border: 1px solid #ccc;
+}
+
+.rm-btn:hover {
+    cursor: pointer;
+}
