@@ -23,7 +23,6 @@ class IssuesList extends React.Component {
     }
 
     render() {
-        console.log(this.props.prevLength);
         let issues = this.props.list || [];
         const showLoadMore = this.props.prevLength === ISSUES_PER_PAGE;
         const filter = this.props.filter;
@@ -37,7 +36,7 @@ class IssuesList extends React.Component {
         return (
             <div>
                 <div className="list-group">
-                    {content}
+                    {content || 'Issues list is empty'}
                 </div>
                 {showLoadMore && <div className="text-center mt-30">
                     <Button color="link" onClick={this.onLoadMore} >Load more</Button>
