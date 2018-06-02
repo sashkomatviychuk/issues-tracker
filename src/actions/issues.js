@@ -181,7 +181,7 @@ export const removeIssue = (index, issue) => (dispatch, getState) => {
 
 export const syncIssues = () => (dispatch, getState) => {
     const state = getState();
-    const offset = state.issues.length;
+    const offset = state.issues.list.length;
     const limit = 1;
 
     return axios.get('api/issues/sync', { params: {offset, limit} })
