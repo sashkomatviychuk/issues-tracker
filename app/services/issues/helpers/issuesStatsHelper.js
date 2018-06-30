@@ -1,5 +1,11 @@
 const _ = require('lodash');
 
+const sortOrder = {
+    open: 0,
+    pending: 1,
+    closed: 2,
+};
+
 class IssuesStatsHelper {
 
     /**
@@ -43,7 +49,13 @@ class IssuesStatsHelper {
             }
 
             return prev;
-        }, []);
+        }, [])
+            .sort((a, b) => {
+                const statusA = sortOrder[a.status];
+                const statusB = sortOrder[b.status];
+
+                return statusA - statusB;
+            });
     }
 }
 
