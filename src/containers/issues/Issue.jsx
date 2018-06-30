@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 
 import { showModal, hideModal } from './../../actions/modal'
 import { removeIssue } from './../../actions/issues'
-import IssueMenu from './IssueMenu'
 
 class Issue extends React.Component {
 
