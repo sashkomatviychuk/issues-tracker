@@ -42,7 +42,7 @@ class IssuesRepository {
         const { error } = validate(data);
 
         if (error) {
-            throw new IssueValidationError(error.message);
+            throw new IssueValidationError(error.details[0].message);
         }
 
         const issue = new Issue(data);
@@ -59,7 +59,7 @@ class IssuesRepository {
         const { error } = validate(data);
 
         if (error) {
-            throw new IssueValidationError(error.message);
+            throw new IssueValidationError(error.details[0].message);
         }
 
         const issue = await Issue.findOne({ _id: id }).lean().exec();
