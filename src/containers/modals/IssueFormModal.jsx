@@ -67,6 +67,9 @@ class IssueFormModal extends React.Component {
         }
     }
 
+    /**
+     * @param {Object} nextProps 
+     */
     componentWillReceiveProps(nextProps) {
         if (nextProps.issue) {
             this.setState(nextProps.issue);
