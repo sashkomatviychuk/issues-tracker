@@ -60,7 +60,7 @@ const webpackConfig = {
                 test: /\.jpg$/, loader: 'url-loader?mimetype=image/jpg',
             },
             {
-                test: /\.svg$/, loader: 'url-loader?mimetype=image/svg+xml',
+                test: /\.svg$/, loader: 'file-loader',
             },
             {
                 test: /\.(woff|woff2|ttf|eot)$/, loader: 'url-loader?limit=1',
