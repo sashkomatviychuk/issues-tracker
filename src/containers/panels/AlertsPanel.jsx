@@ -1,7 +1,7 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import connect from 'react-redux/lib/connect/connect'
 import PropTypes from 'prop-types'
-import { Alert } from 'reactstrap'
+import Alert from 'reactstrap/lib/Alert'
 
 import { hideAlert } from './../../actions/alerts'
 

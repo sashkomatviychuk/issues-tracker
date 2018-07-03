@@ -1,5 +1,6 @@
 import React from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import Route from 'react-router-dom/Route'
+import Switch from 'react-router-dom/Switch'
 
 import Header from './Header';
 import AlertsPanel from './panels/AlertsPanel'

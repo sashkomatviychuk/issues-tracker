@@ -1,7 +1,7 @@
 import React from 'react'
-import { Progress } from 'reactstrap';
+import Progress from 'reactstrap/lib/Progress'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux';
+import connect from 'react-redux/lib/connect/connect'
 
 import { fetchStats } from './../../actions/stats'
 

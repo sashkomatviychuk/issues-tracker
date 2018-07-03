@@ -1,7 +1,8 @@
 import React from 'react'
-import { Button, ButtonGroup } from 'reactstrap'
+import Button from 'reactstrap/lib/Button'
+import ButtonGroup from 'reactstrap/lib/ButtonGroup'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux';
+import connect from 'react-redux/lib/connect/connect'
 
 import { applyIssuesFilter } from './../../actions/issues'
 

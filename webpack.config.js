@@ -27,7 +27,7 @@ const webpackConfig = {
 
     watch: isDev,
 
-    devtool: isDev ? 'cheap-module-eval-source-map' : undefined,
+    devtool: isDev ? 'cheap-source-map' : undefined,
 
     resolve: {
         extensions: ['.js', '.jsx', '.json'],
@@ -77,12 +77,13 @@ const webpackConfig = {
         }),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
     ],
 };
 
 if (!isDev) {
     webpackConfig.plugins.push(new UglifyJsPlugin());
+} else {
+    webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
 }
 
 module.exports = webpackConfig;

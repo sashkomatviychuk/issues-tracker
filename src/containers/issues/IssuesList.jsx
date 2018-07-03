@@ -1,7 +1,7 @@
 import React from 'react'
-import { Badge, Button } from 'reactstrap'
+import Button from 'reactstrap/lib/Button'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux';
+import connect from 'react-redux/lib/connect/connect'
 
 import { fetchIssues, ISSUES_PER_PAGE } from './../../actions/issues'
 import Issue from './Issue';

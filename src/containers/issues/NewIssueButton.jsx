@@ -1,6 +1,6 @@
 import React from 'react'
-import { Button } from 'reactstrap'
-import { connect } from 'react-redux';
+import Button from 'reactstrap/lib/Button'
+import connect from 'react-redux/lib/connect/connect'
 
 import { showModal } from './../../actions/modal'
 

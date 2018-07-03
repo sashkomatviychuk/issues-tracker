@@ -1,9 +1,14 @@
 import React from 'react'
-import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
-import { connect } from 'react-redux'
+
+import ButtonDropdown from 'reactstrap/lib/ButtonDropdown'
+import DropdownToggle from 'reactstrap/lib/DropdownToggle'
+import DropdownMenu from 'reactstrap/lib/DropdownMenu'
+import DropdownItem from 'reactstrap/lib/DropdownItem'
+
+import connect from 'react-redux/lib/connect/connect'
 import PropTypes from 'prop-types'
 
-import { showModal, hideModal } from './../../actions/modal'
+import { showModal } from './../../actions/modal'
 import { removeIssue } from './../../actions/issues'
 
 class IssueOptionsDropdown extends React.Component {

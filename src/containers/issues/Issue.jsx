@@ -1,8 +1,8 @@
 import React from 'react'
-import { Badge, Button } from 'reactstrap'
+import Badge from 'reactstrap/lib/Badge'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux';
+import connect from 'react-redux/lib/connect/connect'
 
 import OptionsDropdown from './OptionsDropdown'
 

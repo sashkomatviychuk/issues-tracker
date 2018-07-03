@@ -1,9 +1,16 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody,
-    ModalFooter, FormGroup, Label, Input
-} from 'reactstrap';
+
+import Button from 'reactstrap/lib/Button'
+import Modal from 'reactstrap/lib/Modal'
+import ModalHeader from 'reactstrap/lib/ModalHeader'
+import ModalBody from 'reactstrap/lib/ModalBody'
+import ModalFooter from 'reactstrap/lib/ModalFooter'
+import FormGroup from 'reactstrap/lib/FormGroup'
+import Label from 'reactstrap/lib/Label'
+import Input from 'reactstrap/lib/Input'
+
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux';
+import connect from 'react-redux/lib/connect/connect'
 
 import { createIssue, updateIssue } from './../../actions/issues'
 import { hideModal } from './../../actions/modal'
