@@ -48,7 +48,7 @@ class IssueOptionsDropdown extends React.Component {
     render() {
         return (
             <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                <DropdownToggle id="optionsBtn" className="options-button">
+                <DropdownToggle className="options-button">
                 </DropdownToggle>
                 <DropdownMenu>
                     <DropdownItem onClick={this.onEdit} >Edit</DropdownItem>

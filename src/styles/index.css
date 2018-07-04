@@ -45,16 +45,6 @@ body {
     cursor: -webkit-grab;
 }
 
-.rm-btn {
-    font-size: 14px;
-    padding: 2px 4px;
-    border: 1px solid #ccc;
-}
-
-.rm-btn:hover {
-    cursor: pointer;
-}
-
 .options-button {
     height: 24px;
     width: 24px;

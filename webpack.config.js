@@ -1,7 +1,12 @@
 const webpack = require('webpack');
 const path = require('path');
+const glob = require('glob');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const PurifyCSSPlugin = require('purifycss-webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const isDev = NODE_ENV === 'development';
@@ -60,7 +65,7 @@ const webpackConfig = {
                 test: /\.jpg$/, loader: 'url-loader?mimetype=image/jpg',
             },
             {
-                test: /\.svg$/, loader: 'file-loader',
+                test: /\.svg$/, loader: 'url-loader',
             },
             {
                 test: /\.(woff|woff2|ttf|eot)$/, loader: 'url-loader?limit=1',
@@ -77,11 +82,16 @@ const webpackConfig = {
         }),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.NamedModulesPlugin(),
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
     ],
 };
 
 if (!isDev) {
-    webpackConfig.plugins.push(new UglifyJsPlugin());
+    webpackConfig.plugins.push(new UglifyJsPlugin({
+        extractComments: true,
+    }));
+    webpackConfig.plugins.push(new CompressionPlugin());
+    webpackConfig.plugins.push(new BundleAnalyzerPlugin());
 } else {
     webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
 }
