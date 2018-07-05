@@ -63,17 +63,21 @@ class Application {
 
     serveGzipped() {
         this.express.get('*.js', function (req, res, next) {
+            if (req.url.indexOf('sw.js') !== -1) {
+                return next();
+            }
+            
             req.url = req.url + '.gz';
             res.set('Content-Encoding', 'gzip');
             next();
         });
 
-        // this.express.get('*.css', function (req, res, next) {
-        //     req.url = req.url + '.gz';
-        //     res.set('Content-Encoding', 'gzip');
-        //     res.set('Content-Type', 'text/css');
-        //     next();
-        // });
+        this.express.get('*.css', function (req, res, next) {
+            req.url = req.url + '.gz';
+            res.set('Content-Encoding', 'gzip');
+            res.set('Content-Type', 'text/css');
+            next();
+        });
     }
 }
 

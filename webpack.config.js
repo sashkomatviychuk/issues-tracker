@@ -1,12 +1,11 @@
 const webpack = require('webpack');
 const path = require('path');
-const glob = require('glob');
+const glob = require('glob-all');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const PurifyCSSPlugin = require('purifycss-webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const isDev = NODE_ENV === 'development';
@@ -42,12 +41,14 @@ const webpackConfig = {
     module: {
         loaders: [
             {
-                test: /\.(css|sass)$/,
-                loaders: [
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader',
-                ],
+                test: /\.(css|scss)$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        { loader: 'css-loader', options: { minimize: true } },
+                        { loader: 'sass-loader', options: { minimize: true } }
+                    ]
+                })
             },
             {
                 test: /\.(js|jsx)$/,
@@ -83,6 +84,7 @@ const webpackConfig = {
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.NamedModulesPlugin(),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
+        new ExtractTextPlugin('style.css'),
     ],
 };
 
@@ -91,7 +93,6 @@ if (!isDev) {
         extractComments: true,
     }));
     webpackConfig.plugins.push(new CompressionPlugin());
-    webpackConfig.plugins.push(new BundleAnalyzerPlugin());
 } else {
     webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
 }

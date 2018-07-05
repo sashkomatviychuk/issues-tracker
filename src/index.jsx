@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom'
 import Provider from 'react-redux/lib/components/Provider'
 import BrowserRouter from 'react-router-dom/BrowserRouter'
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'styles/vendor.scss';
 import 'styles/index.css'
+
 import App from 'containers/App'
 import configureStore from 'configureStore'
 
@@ -29,4 +30,11 @@ if (module.hot) {
         const NewApp = require('containers/App').default;
         render(NewApp);
 	});
+}
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+        .register('./sw.js')
+        .then(function () { console.log('Service Worker Registered'); })
+        .catch(function () { console.log('Service Worker Not Registered') });
 }
