@@ -11,7 +11,7 @@ class IssuesContainer extends React.Component {
         return (
             <div>
                 <IssuesStats />
-                <div className="d-flex w-100 justify-content-between mt-30">
+                <div className="d-flex w-100 justify-content-between mt-30 flex-wrap">
                     <IssuesFilter />
                     <NewIssueButton />
                 </div>

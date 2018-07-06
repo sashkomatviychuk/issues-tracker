@@ -49,12 +49,13 @@ class IssuesFilter extends React.Component {
             filter={filter.status}
             onClick={this.onClick.bind(this, filter.status)}
             key={filter.label}
+            className="flex-fill"
         >
             {filter.label}
         </Button>);
 
         return (
-            <ButtonGroup>
+            <ButtonGroup className="flex-grow-1 flex-sm-grow-0 flex-wrap">
                 {content}
             </ButtonGroup>
         );

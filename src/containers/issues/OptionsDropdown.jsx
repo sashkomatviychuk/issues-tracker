@@ -50,7 +50,7 @@ class IssueOptionsDropdown extends React.Component {
             <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                 <DropdownToggle className="options-button">
                 </DropdownToggle>
-                <DropdownMenu>
+                <DropdownMenu right>
                     <DropdownItem onClick={this.onEdit} >Edit</DropdownItem>
                     <DropdownItem onClick={this.onRemove} >Remove</DropdownItem>
                 </DropdownMenu>

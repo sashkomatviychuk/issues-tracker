@@ -18,7 +18,14 @@ class NewIssueButton extends React.Component {
 
     render() {
         return (
-            <Button color="primary" size="sm" onClick={this.onClick}>New Issue</Button>
+            <Button
+                className="flex-grow-1 flex-sm-grow-0 button-row"
+                color="primary"
+                size="sm"
+                onClick={this.onClick}
+            >
+                New Issue
+            </Button>
         );
     }
 }

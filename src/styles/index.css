@@ -60,3 +60,15 @@ body {
 .options-button:hover {
     background-color: #eeeeee;
 }
+
+@media(min-width: 332px) {
+    .button-row {
+        margin-left: 2px;
+    }
+}
+
+@media(max-width: 331px) {
+    .button-row {
+        margin-top: 10px;
+    }
+}
