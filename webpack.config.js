@@ -11,7 +11,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const isDev = NODE_ENV === 'development';
 
-let entry = ['react-hot-loader/patch'];
+let entry = ['react-hot-loader/patch', 'babel-polyfill'];
 
 if (isDev) {
     entry.push('webpack-hot-middleware/client');
