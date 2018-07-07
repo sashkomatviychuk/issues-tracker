@@ -1,4 +1,5 @@
 const cacheName = 'issues-tracker-app-v1';
+const dataCacheName = 'issues-tracker-app-api-v1';
 const filesToCache = [
   '/',
   '/index.html',
@@ -36,10 +37,21 @@ self.addEventListener('activate', function(e) {
 
 self.addEventListener('fetch', function(e) {
   console.log('[Service Worker] Fetch', e.request.url);
-  
-  e.respondWith(
-    caches.match(e.request).then(function(response) {
-      return response || fetch(e.request);
-    })
-  );
+
+  if (e.request.url.indexOf('/api/') > -1) {
+    e.respondWith(
+      caches.open(dataCacheName).then(function(cache) {
+        return fetch(e.request).then(function(response){
+          cache.put(e.request.url, response.clone());
+          return response;
+        });
+      })
+    );
+  } else {
+    e.respondWith(
+      caches.match(e.request).then(function(response) {
+        return response || fetch(e.request);
+      })
+    );
+  }
 });

@@ -20,5 +20,15 @@ export const fetchStats = () => (dispatch, getState) => {
 
             return response;
         })
-        .catch(err => {});
+        .catch(err => {
+            const cacheName = `${window.location.origin}/api/issues/stats`;
+
+            caches.match(cacheName).then(function(response) {
+                if (response) {
+                    response.json().then(function updateFromCache(json) {
+                        dispatch(updateStats(json.stats));    
+                    });
+                }
+            });
+        });
 };

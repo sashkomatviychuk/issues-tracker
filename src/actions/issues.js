@@ -116,8 +116,19 @@ export const fetchIssues = () => (dispatch, getState) => {
             return response;
         })
         .catch(err => {
-            dispatch(issuesLoadedFailed());
-            dispatch(showError('Error occured during fetching'));
+            const cacheName = `${window.location.origin}/api/issues?page=${page}`;
+
+            caches.match(cacheName).then(function(response) {
+                if (response) {
+                    response.json().then(function updateFromCache(json) {
+                        dispatch(issuesWasLoaded({ data: json }));    
+                    });
+                } else {
+                    dispatch(issuesLoadedFailed());
+                }
+
+                dispatch(showError('Error occured during fetching'));
+            });
         });
 };
 
