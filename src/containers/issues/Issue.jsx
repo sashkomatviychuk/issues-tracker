@@ -1,6 +1,6 @@
 import React from 'react'
 import Badge from 'reactstrap/lib/Badge'
-import moment from 'moment'
+import ta from 'time-ago'
 import PropTypes from 'prop-types'
 import connect from 'react-redux/lib/connect/connect'
 
@@ -29,7 +29,7 @@ class Issue extends React.Component {
                 <p className="mb-1">{issue.description}</p>
                 <div className="d-flex w-100 justify-content-between">
                     <Badge color="info">{issue.priority}</Badge>
-                    <small>{moment(issue.created_at).fromNow()}</small>
+                    <small>{ta.ago(issue.created_at)}</small>
                 </div>
             </div>
         );

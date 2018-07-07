@@ -4,8 +4,9 @@ const glob = require('glob-all');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const PurifyCSSPlugin = require('purifycss-webpack');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const CompressionPlugin = require("compression-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const isDev = NODE_ENV === 'development';
@@ -93,6 +94,28 @@ if (!isDev) {
         extractComments: true,
     }));
     webpackConfig.plugins.push(new CompressionPlugin());
+    webpackConfig.plugins.push(new PurifyCSSPlugin({
+        paths: glob.sync(
+            [
+                path.join(__dirname, 'src/**/*.jsx'),
+                path.join(__dirname, 'public/index.html'),
+                path.join(__dirname, 'node_modules/reactstrap/lib/Button.js'),
+                path.join(__dirname, 'node_modules/reactstrap/lib/ButtonGroup.js'),
+                path.join(__dirname, 'node_modules/reactstrap/lib/ButtonDropdown.js'),
+                path.join(__dirname, 'node_modules/reactstrap/lib/DropdownToggle.js'),
+                path.join(__dirname, 'node_modules/reactstrap/lib/DropdownMenu.js'),
+                path.join(__dirname, 'node_modules/reactstrap/lib/DropdownItem.js'),
+                path.join(__dirname, 'node_modules/reactstrap/lib/Badget.js'),
+                path.join(__dirname, 'node_modules/reactstrap/lib/Progress.js'),
+                path.join(__dirname, 'node_modules/reactstrap/lib/Modal*.js'),
+                path.join(__dirname, 'node_modules/reactstrap/lib/Label.js'),
+                path.join(__dirname, 'node_modules/reactstrap/lib/FormGroup.js'),
+                path.join(__dirname, 'node_modules/reactstrap/lib/Input.js'),
+                path.join(__dirname, 'node_modules/reactstrap/lib/Alert.js'),
+            ]
+        )
+    }));
+    // webpackConfig.plugins.push(new BundleAnalyzerPlugin());
 } else {
     webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
 }

@@ -74,6 +74,7 @@
     "serve-favicon": "^2.5.0",
     "sinon": "^5.1.1",
     "style-loader": "^0.21.0",
+    "time-ago": "^0.2.1",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "url-loader": "^1.0.1",
     "webpack": "^3.10.0",
