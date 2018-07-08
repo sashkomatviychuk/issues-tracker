@@ -5,6 +5,7 @@ import issues from './reducers/issues';
 import alerts from './reducers/alerts';
 import modal from './reducers/modal';
 import stats from './reducers/stats';
+import app from './reducers/app';
 
 module.exports = function (initialState = {}) {
     const combined = combineReducers({
@@ -12,6 +13,7 @@ module.exports = function (initialState = {}) {
         alerts,
         modal,
         stats,
+        app,
     });
 
     return createStore(combined, initialState, applyMiddleware(thunk));

@@ -20,7 +20,12 @@ class InfoPanel extends React.Component {
     render() {
         const { message, type } = this.props;
 
-        return (<Alert color={type} isOpen={!!type} toggle={this.onClose}>
+        return (<Alert
+            color={type}
+            isOpen={!!type}
+            toggle={this.onClose}
+            className="alert-notification"
+        >
             {message}
         </Alert>);
     }

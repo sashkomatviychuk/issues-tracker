@@ -2,7 +2,7 @@ body {
     margin: 0;
 }
 
-.alert {
+.alert-notification {
     position: absolute;
     z-index: 1099;
     width: 100%;
