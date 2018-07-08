@@ -1,12 +1,22 @@
 require('babel-core/register');
 require('babel-polyfill');
 
+const fs = require('fs');
 const http = require('http');
+const https = require('https');
 const debug = require('debug');
+const path = require('path');
 
 const app = require('./app');
-
 const port = normalizePort(process.env.PORT || '3000');
+// used for https
+// const credentials = {
+//     key: fs.readFileSync(path.join(__dirname, 'cert/rootCA.pem')),
+//     key: fs.readFileSync(path.join(__dirname, 'cert/server.key')),
+//     cert: fs.readFileSync(path.join(__dirname, 'cert/server.crt')),
+// };
+
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 const server = http.createServer(app);
 

@@ -11,7 +11,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const isDev = NODE_ENV === 'development';
 
-let entry = ['react-hot-loader/patch', 'babel-polyfill'];
+let entry = ['react-hot-loader/patch'];
 
 if (isDev) {
     entry.push('webpack-hot-middleware/client');
@@ -32,7 +32,7 @@ const webpackConfig = {
 
     watch: isDev,
 
-    devtool: isDev ? 'cheap-source-map' : undefined,
+    devtool: isDev ? 'source-map' : undefined,
 
     resolve: {
         extensions: ['.js', '.jsx', '.json'],
