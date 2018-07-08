@@ -17,12 +17,15 @@ class NewIssueButton extends React.Component {
     }
 
     render() {
+        const { isOnline } = this.props;
+
         return (
             <Button
                 className="flex-grow-1 flex-sm-grow-0 button-row"
                 color="primary"
                 size="sm"
                 onClick={this.onClick}
+                disabled={!isOnline}
             >
                 New Issue
             </Button>
@@ -30,4 +33,6 @@ class NewIssueButton extends React.Component {
     }
 }
 
-export default connect()(NewIssueButton);
+const mapStateToProps = state => state.app;
+
+export default connect(mapStateToProps)(NewIssueButton);

@@ -46,13 +46,19 @@ class IssueOptionsDropdown extends React.Component {
     }
 
     render() {
+        const { isOnline } = this.props;
+
         return (
             <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                 <DropdownToggle className="options-button">
                 </DropdownToggle>
                 <DropdownMenu right>
-                    <DropdownItem onClick={this.onEdit} >Edit</DropdownItem>
-                    <DropdownItem onClick={this.onRemove} >Remove</DropdownItem>
+                    <DropdownItem onClick={this.onEdit} disabled={!isOnline}>
+                        Edit
+                    </DropdownItem>
+                    <DropdownItem onClick={this.onRemove} disabled={!isOnline}>
+                        Remove
+                    </DropdownItem>
                 </DropdownMenu>
             </ButtonDropdown>
         );
@@ -65,4 +71,6 @@ IssueOptionsDropdown.propTypes = {
     issue: PropTypes.object,
 };
 
-export default connect()(IssueOptionsDropdown);
+const mapStateToProps = state => state.app;
+
+export default connect(mapStateToProps)(IssueOptionsDropdown);
