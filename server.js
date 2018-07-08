@@ -19,6 +19,7 @@ const port = normalizePort(process.env.PORT || '3000');
 // process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 const server = http.createServer(app);
+// const httpsServer = https.createServer(credentials, app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -26,6 +27,10 @@ const server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+// httpsServer.listen(3033);
+// httpsServer.on('error', onError);
+// httpsServer.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
