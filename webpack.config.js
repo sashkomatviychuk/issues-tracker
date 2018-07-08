@@ -86,6 +86,11 @@ const webpackConfig = {
         new webpack.NamedModulesPlugin(),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
         new ExtractTextPlugin('style.css'),
+        new HtmlWebpackPlugin({
+            template: 'public/template.ejs',
+            filename: '../index.html',
+            minify: true,
+        })
     ],
 };
 
